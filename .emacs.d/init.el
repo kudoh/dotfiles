@@ -4,11 +4,13 @@
   (let (path)
     (dolist (path paths paths)
       (let ((default-directory
-	      (expand-file-name (concat user-emacs-directory path))))
-	(add-to-list 'load-path default-directory)
-	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-	    (normal-top-level-add-subdirs-to-load-path))))))
+              (expand-file-name (concat user-emacs-directory path))))
+        (add-to-list 'load-path default-directory)
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+            (normal-top-level-add-subdirs-to-load-path))))))
 (add-to-load-path "elisp" "conf" "public_repos")
+
+(add-to-list 'exec-path "~/apache-maven-3.0.4/bin")
 
 ;; ELPA
 ;; (install-elisp "http://bit.ly/pkg-el23")
@@ -24,7 +26,7 @@
   ;; install directory
   (setq auto-install-directory "~/.emacs.d/elisp/")
   (auto-install-update-emacswiki-package-name t)
-   (auto-install-compatibility-setup))
+  (auto-install-compatibility-setup))
 
 ;; emacs settings
 (size-indication-mode t)
@@ -67,25 +69,25 @@
    anything-quick-update t
    anything-enable-shortcuts 'alphabet)
 
-(when (require 'anything-config nil t)
-  (setq anything-su-orsudo "sudo"))
+  (when (require 'anything-config nil t)
+    (setq anything-su-orsudo "sudo"))
 
-(require 'anything-match-plugin nil t)
+  (require 'anything-match-plugin nil t)
 
-(when (and (executable-find "cmigemo")
-           (require 'migemo nil t))
-  (require 'anything-migemo nil t))
+  (when (and (executable-find "cmigemo")
+             (require 'migemo nil t))
+    (require 'anything-migemo nil t))
 
-(when (require 'anything-complete nil t)
-  (anything-lisp-complete-symbol-set-timer 150))
+  (when (require 'anything-complete nil t)
+    (anything-lisp-complete-symbol-set-timer 150))
 
-(require 'anything-show-completion nil t)
+  (require 'anything-show-completion nil t)
 
-(when (require 'auto-install nil t)
-  (require 'anything-auto-install nil t))
+  (when (require 'auto-install nil t)
+    (require 'anything-auto-install nil t))
 
-(when (require 'descbinds-anything nil t)
-  (descbinds-anything-install)) 
+  (when (require 'descbinds-anything nil t)
+    (descbinds-anything-install)) 
   (global-set-key (kbd "M-y") 'anything-show-kill-ring))
 
 ;; color-moccur
@@ -107,15 +109,17 @@
    anything-c-moccur-enable-auto-look-flag t
    anything-c-moccur-enable-initial-pattern t)
   (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur)
-)
+  )
 
 ;; auto-complete
 ;;(package-install 'auto-complete)
 (when (require 'auto-complete-config nil t)
   (add-to-list 'ac-dictionary-directories
-              "~/.emacs.d/elisp/ac-dict")
-  (define-key ac-mode-map (kbd "M-/") 'auto-complete)
-    (ac-config-default))
+               "~/.emacs.d/elisp/ac-dict")
+  (define-key ac-mode-map (kbd "M-\\") 'auto-complete)
+  (define-key ac-complete-mode-map (kbd "C-n") 'ac-next)
+  (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
+  (ac-config-default))
 
 ;; moccur-edit
 ;;(auto-install-from-emacswiki "moccur-edit.el")
@@ -180,7 +184,7 @@
  '(lambda ()
     ;; Don't want flymake mode for ruby regions in rhtml files
     (if (not (null buffer-file-name)) (flymake-mode))))
-  
+
 (add-hook
  'ruby-mode-hook
  '(lambda ()
@@ -218,14 +222,54 @@
 ;; cd malabar-mode
 ;; mvn packge -DskipTests=true ;;because test failed...
 ;; unzip malabar-1.5-SNAPSHOT-dist.zip
+(add-to-list 'load-path "~/emacs.d/elisp/malabar-mode")
 (require 'malabar-mode)
-(setq malabar-groovy-lib-dir "~/workspace/malabar-mode/target/malabar-1.5-SNAPSHOT/lib")
-(setq malabar-groovy-compile-server-port 9500)
-(setq malabar-groovy-eval-server-port 9501)
-(setq malabar-groovy-extra-classpath "~/workspace/malabar-mode/target/classes")
-(setq malabar-groovy-restart)
+;;(setq malabar-groovy-lib-dir "/usr/local/lib/")
+(setq malabar-groovy-lib-dir "~/projects/malabar")
+
+;; (setq malabar-groovy-compile-server-port 9500)
+;; (setq malabar-groovy-eval-server-port 9501)
+;; (setq malabar-groovy-extra-classpath "/home/kudoh/projects/malabar-lib")
+(setq debug-on-error t)
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 (add-hook 'malabar-mode-hook
-     (lambda () 
-       (add-hook 'after-save-hook 'malabar-compile-file-silently
-                  nil t)))
+          (lambda () 
+            (add-hook 'after-save-hook 'malabar-compile-file-silently
+                      nil t)))
+(global-set-key (kbd "C-c j") 'malabar-jump-to-thing)
+
+;; gtags
+;; wget http://tamacom.com/global/global-6.1.tar.gz
+;; sudo apt-get install ncurse*
+;; ./configure
+;; make
+;; sudo make intall
+(require 'gtags nil t)
+(setq gtags-suggested-key-mapping nil)
+(global-set-key (kbd "C-c t") 'gtags-find-tag)
+(global-set-key (kbd "C-c e") 'gtags-pop-stack)
+
+;; multi-term
+;; (package-install 'multi-term)
+(when (require 'multi-term nil t)
+  (setq multi-term-program "/bin/bash"))
+
+;; yasnippet
+;; git clone https://github.com/capitaomorte/yasnippet
+
+(when (require 'yasnippet)
+  (yas/global-mode 1)
+  (yas/load-directory "~/.emacs.d/public_repos/yasnippet/snippets"))
+
+;; java auto complete
+;; git clone https://github.com/jixiuf/ajc-java-complete
+;; cp -p popup-patch.diff ~/.emacs.d/elpa/auto-complete-1.4/
+;; patch -p0 < popup-patch.diff -> not done because auto-complete is 1.4...
+;; javac Tags.java
+;; export CLASSPATH=$JAVA_HOME:/path/to/jars/:/project/WEB-INF/classes/:.
+;; java Tags -XX:MaxPermSize=512m
+;; didn't use...
+;;(when (require 'ajc-java-complete-config)
+;;  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+;;  (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook))
+(put 'erase-buffer 'disabled nil)
