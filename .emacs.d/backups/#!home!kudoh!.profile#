@@ -1,0 +1,31 @@
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+export PATH=$PATH:/home/kudoh/eclipse
+export PATH=$PATH:/home/kudoh/jdk1.6.0_33/bin
+export JAVA_HOME=/home/kudoh/jdk1.6.0_33
+export AWS_AUTO_SCALING_HOME=/home/kudoh/aws/AutoScaling-1.0.61.0
+export PATH=$PATH:$AWS_AUTO_SCALING_HOME/bin
+export AWS_CREDENTIAL_FILE=/home/kudoh/aws/credential
+export PATH=$PATH:/home/kudoh/apache-maven-3.0.4/bin
+export M2_HOME=/home/kudoh/apache-maven-3.0.4

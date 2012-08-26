@@ -1,0 +1,1 @@
+(moccur-grep-find "~" (list "abc"))
