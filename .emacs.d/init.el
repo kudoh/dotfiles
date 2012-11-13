@@ -1,5 +1,5 @@
 ;; (add-to-list 'load-path "~/.emacs.d/elisp") 
-
+(add-to-list 'exec-path "~/apache-maven-3.0.4/bin")
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -161,10 +161,11 @@
   (ruby-electric-mode t)
   (ruby-block-mode t))
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks)
+(define-key ruby-mode-map [return] 'reindent-then-newline-and-indent)
 
-;;;;  flymake for ruby
+;;;; flymake for ruby
 (require 'flymake)
-(set-face-background 'flymake-errline "red4")
+(set-face-background 'flymake-errline "gold")
 (set-face-background 'flymake-warnline "dark slate blue")
 ;; Invoke ruby with '-c' to get syntax checking
 (defun flymake-ruby-init ()
@@ -230,7 +231,7 @@
 ;; (setq malabar-groovy-compile-server-port 9500)
 ;; (setq malabar-groovy-eval-server-port 9501)
 ;; (setq malabar-groovy-extra-classpath "/home/kudoh/projects/malabar-lib")
-(setq debug-on-error t)
+;; (setq debug-on-error t)
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 (add-hook 'malabar-mode-hook
           (lambda () 
