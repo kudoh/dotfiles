@@ -43,7 +43,14 @@
 (setq show-paren-delay 0)
 (show-paren-mode t)
 (setq show-paren-style 'expression)
+;;(set-face-underline-p 'show-paren-match-face "navy")
 ;;(show-paren-match-face nil)
+(set-face-background 'region "lime greeen")
+(set-face-foreground 'minibuffer-prompt "white")
+;; color-theme
+(when (require 'color-theme nil t)
+  (color-theme-initialize)
+  (color-theme-hober))
 
 ;; backup direcotry
 (setq backup-directory-balist
@@ -165,7 +172,7 @@
 
 ;;;; flymake for ruby
 (require 'flymake)
-(set-face-background 'flymake-errline "gold")
+(set-face-background 'flymake-errline "dark olive geen")
 (set-face-background 'flymake-warnline "dark slate blue")
 ;; Invoke ruby with '-c' to get syntax checking
 (defun flymake-ruby-init ()
