@@ -44,7 +44,7 @@
 (show-paren-mode t)
 (setq show-paren-style 'expression)
 ;;(set-face-underline-p 'show-paren-match-face "navy")
-;;(show-paren-match-face nil)
+(set-face-background 'show-paren-match-face "navy")
 (set-face-background 'region "lime greeen")
 (set-face-foreground 'minibuffer-prompt "white")
 ;; color-theme
