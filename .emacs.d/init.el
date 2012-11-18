@@ -44,6 +44,12 @@
 (show-paren-mode t)
 (setq show-paren-style 'expression)
 ;;(show-paren-match-face nil)
+(set-face-background 'region "lime greeen")
+(set-face-foreground 'minibuffer-prompt "white")
+;; color-theme
+(when (require 'color-theme nil t)
+  (color-theme-initialize)
+  (color-theme-hober))
 
 ;; backup direcotry
 (setq backup-directory-balist
