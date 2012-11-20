@@ -1,5 +1,0 @@
---begin
-aaaaa                                                                   100
-bbbbb                                                                   200
-cccc                                                                    300
---end                                                                   600
