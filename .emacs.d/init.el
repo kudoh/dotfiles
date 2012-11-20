@@ -45,7 +45,7 @@
 (setq show-paren-style 'expression)
 ;;(set-face-underline-p 'show-paren-match-face "navy")
 (set-face-background 'show-paren-match-face "navy")
-(set-face-background 'region "lime greeen")
+(set-face-background 'region "purple4")
 (set-face-foreground 'minibuffer-prompt "white")
 ;; color-theme
 (when (require 'color-theme nil t)
@@ -281,3 +281,8 @@
 ;;  (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 ;;  (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook))
 (put 'erase-buffer 'disabled nil)
+
+;; cursor hilight like eclipse
+;; M-x auto-install-from-url https://raw.github.com/mitsuo-saito/auto-highlight-symbol-mode/master/auto-highlight-symbol.el
+(global-auto-highlight-symbol-mode t)
+(global-set-key (kbd "<f9>") 'ahs-change-range)
