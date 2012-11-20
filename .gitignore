@@ -1,6 +1,7 @@
 .*~
 *~
 tramp
+session*
 /.emacs.d/undohist
 /session.*
 /.emacs.d/backups
