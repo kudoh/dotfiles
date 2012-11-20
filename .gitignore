@@ -1,8 +1,8 @@
 .*~
 *~
-tramp
-backups
-url
+tramp/*
+backups/*
+url/*
 session*
 /.emacs.d/undohist
 /session.*
