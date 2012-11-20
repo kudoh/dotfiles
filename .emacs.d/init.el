@@ -284,5 +284,6 @@
 
 ;; cursor hilight like eclipse
 ;; M-x auto-install-from-url https://raw.github.com/mitsuo-saito/auto-highlight-symbol-mode/master/auto-highlight-symbol.el
+(require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
 (global-set-key (kbd "<f9>") 'ahs-change-range)
