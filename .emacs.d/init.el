@@ -10,8 +10,6 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 (add-to-load-path "elisp" "conf" "public_repos")
 
-(add-to-list 'exec-path "~/apache-maven-3.0.4/bin")
-
 ;; ELPA
 ;; (install-elisp "http://bit.ly/pkg-el23")
 (when (require 'package nil t)       
@@ -169,6 +167,10 @@
   (ruby-block-mode t))
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 (define-key ruby-mode-map [return] 'reindent-then-newline-and-indent)
+(setq auto-mode-alist
+          (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+(setq auto-mode-alist
+          (append '(("buildfile$" . ruby-mode)) auto-mode-alist))
 
 ;;;; flymake for ruby
 (require 'flymake)
@@ -287,3 +289,23 @@
 (require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
 (global-set-key (kbd "<f9>") 'ahs-change-range)
+
+;; scala-mode
+;; https://github.com/scala/scala-dist/tree/master/tool-support/src/emacs
+(require 'scala-mode-feature-electric)
+(require 'scala-mode-auto)
+(add-hook 'scala-mode-hook
+	      '(lambda ()
+            (scala-electric-mode)))
+(add-hook 'scala-mode-hook
+          '(lambda ()
+             (yas/minor-mode-on)))
+(define-key scala-mode-feature-electric-mode-map (kbd "<return>") 'reindent-then-newline-and-indent)
+
+;; ctags
+(require 'ctags-update)
+(ctags-update-minor-mode 1)
+(setq ctags-update-command "ctags -e -R")
+;;(setq ctags-command "ctags -R --fields=\"+afikKlmnsSzt\" ")
+(global-set-key (kbd "<f5>") 'ctags-update)
+(put 'narrow-to-region 'disabled nil)
