@@ -309,3 +309,13 @@
 ;;(setq ctags-command "ctags -R --fields=\"+afikKlmnsSzt\" ")
 (global-set-key (kbd "<f5>") 'ctags-update)
 (put 'narrow-to-region 'disabled nil)
+
+;; use clipboad
+(cond (window-system
+(setq x-select-enable-clipboard t)
+)) 
+
+;; coffee script
+(autoload 'coffee-mode "coffee-mode" "Major mode for editing CoffeeScript." t)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))

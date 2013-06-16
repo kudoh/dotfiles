@@ -1,0 +1,18 @@
+(defun novo-mode ()
+  (interactive)
+  (setq major-mode 'novo-mode)
+  (setq mode-name "novo's mode")
+   
+  ;; define local map
+  (setq novo-local-map (make-sparse-keymap))
+  (define-key novo-local-map (kbd "h") 'backward-char)
+  (define-key novo-local-map (kbd "j") 'previous-line)
+  (define-key novo-local-map (kbd "k") 'next-line)
+  (define-key novo-local-map (kbd "l") 'forward-char)   
+  (use-local-map novo-local-map)
+)
+
+(defun hello-novo ()
+  (interactive)
+  (insert "novo's first lisp")
+)
