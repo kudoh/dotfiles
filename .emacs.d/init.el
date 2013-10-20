@@ -32,7 +32,11 @@
 (display-battery-mode t)
 (setq frame-title-format "%f %& %Z")
 (global-linum-mode t)
-(setq-default tab-width 4)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(setq inhibit-startup-echo-area-message t)
+(defalias 'yes-or-no-p 'y-or-n-p)
+(setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 (set-face-attribute 'default nil
 					:family "Lucida Console"
@@ -60,6 +64,12 @@
 (global-set-key (kbd "C-m") 'newline-and-indent)
 (global-set-key (kbd "C-c l") 'toggle-truncate-lines)
 (global-set-key (kbd "C-t") 'other-window)
+
+;; recent files
+(require 'recentf)
+(setq recentf-max-saved-items 100)
+(setq recentf-auto-cleanup 30 t 'recentf-save-list)
+(recentf-mode 1)
 
 ;; redo setting url: http://www.emacswiki.org/emacs/download/redo+.el
 (when (require 'redo+ nil t)
@@ -200,20 +210,6 @@
  '(lambda ()
     (define-key ruby-mode-map "\C-cd" 'flymake-display-err-menu-for-current-line)))
 
-
-;; java flymake ;; I don't want to use ant...
-;;(require 'flymake)
-;;(defun flymake-java-init ()
-;;  (flymake-simple-make-init-impl
-;;   'flymake-create-temp-with-folder-structure nil nil
-;;   buffer-file-name
-;;   'flymake-get-java-cmdline))
-;;(defun flymake-get-java-cmdline (source base-dir)
-;;  (list "javac" (list "-J-Dfile.encoding=utf-8" "-encoding" "utf-8"
-;;              source)))
-;;(push '("\\.java$" flymake-java-init) flymake-allowed-file-name-masks)
-;;(add-hook 'java-mode-hook '(lambda () (flymake-mode t)))
-
 ;; CEDET
 ;; wget http://sourceforge.net/projects/cedet/files/cedet/cedet-1.1.tar.gz
 ;; tar -xvf cedet-1.1.tar.gz
@@ -263,6 +259,8 @@
 ;; (package-install 'multi-term)
 (when (require 'multi-term nil t)
   (setq multi-term-program "/bin/bash"))
+(add-hook 'term-mode-hook (lambda ()
+                            (define-key term-raw-map (kbd "C-y") 'term-paste)))
 
 ;; yasnippet
 ;; git clone https://github.com/capitaomorte/yasnippet
@@ -319,3 +317,6 @@
 (autoload 'coffee-mode "coffee-mode" "Major mode for editing CoffeeScript." t)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+
+;; R
+(require 'ess-site)
