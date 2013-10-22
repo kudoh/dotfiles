@@ -36,10 +36,10 @@
 (tool-bar-mode 0)
 (setq inhibit-startup-echo-area-message t)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 (set-face-attribute 'default nil
-					:family "Lucida Console"
+					:family "ubuntu mono"
 					:height 110)
 (global-hl-line-mode 0)
 (setq show-paren-delay 0)
@@ -66,10 +66,10 @@
 (global-set-key (kbd "C-t") 'other-window)
 
 ;; recent files
-(require 'recentf)
-(setq recentf-max-saved-items 100)
-(setq recentf-auto-cleanup 30 t 'recentf-save-list)
-(recentf-mode 1)
+;; (require 'recentf)
+;; (setq recentf-max-saved-items 100)
+;; (setq recentf-auto-cleanup 30 t 'recentf-save-list)
+;; (recentf-mode 1)
 
 ;; redo setting url: http://www.emacswiki.org/emacs/download/redo+.el
 (when (require 'redo+ nil t)
