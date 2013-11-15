@@ -8,15 +8,15 @@
         (add-to-list 'load-path default-directory)
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
             (normal-top-level-add-subdirs-to-load-path))))))
-(add-to-load-path "elisp" "conf" "public_repos")
+(add-to-load-path "elisp" "public_repos")
 
 ;; ELPA
 ;; (install-elisp "http://bit.ly/pkg-el23")
-(when (require 'package nil t)       
-  (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
-  (package-initialize))
+(when (require 'package nil t)
+ (add-to-list 'package-archives
+              '("marmalade" . "http://marmalade-repo.org/packages/"))
+ (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+ (package-initialize))
 
 
 ;; auto-install
@@ -29,7 +29,7 @@
 ;; emacs settings
 (size-indication-mode t)
 (display-time-mode t)
-(display-battery-mode t)
+;;(display-battery-mode t)
 (setq frame-title-format "%f %& %Z")
 (global-linum-mode t)
 (menu-bar-mode 0)
@@ -38,14 +38,12 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
-(set-face-attribute 'default nil
-					:family "ubuntu mono"
-					:height 110)
+(set-face-attribute 'default nil :family "Monaco"  :height 100)
 (global-hl-line-mode 0)
 (setq show-paren-delay 0)
 (show-paren-mode t)
 (setq show-paren-style 'expression)
-;;(set-face-underline-p 'show-paren-match-face "navy")
+(set-face-underline-p 'show-paren-match-face "navy")
 (set-face-background 'show-paren-match-face "navy")
 (set-face-background 'region "purple4")
 (set-face-foreground 'minibuffer-prompt "white")
@@ -54,11 +52,31 @@
   (color-theme-initialize)
   (color-theme-hober))
 
+(set-fontset-font
+  (frame-parameter nil 'font)
+    'japanese-jisx0208
+    '("Hiragino Kaku Gothic ProN" . "iso10646-1"))
+(set-fontset-font
+  (frame-parameter nil 'font)
+    'japanese-jisx0212
+    '("Hiragino Kaku Gothic ProN" . "iso10646-1")) 
+(set-fontset-font
+  (frame-parameter nil 'font)
+    'mule-unicode-0100-24ff
+    '("monaco" . "iso10646-1"))
+(setq face-font-rescale-alist
+    '(("^-apple-hiragino.*" . 1.2)
+      (".*osaka-bold.*" . 1.2)
+      (".*osaka-medium.*" . 1.2)
+      (".*courier-bold-.*-mac-roman" . 1.0)
+      (".*monaco cy-bold-.*-mac-cyrillic" . 0.9) (".*monaco-bold-.*-mac-roman" . 0.9)
+      ("-cdac$" . 1.3)))
+
 ;; backup direcotry
-(setq backup-directory-balist
-      (cons "." "~/.emacs.d/backups/"))
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
+;(setq backup-directory-balist
+;      (cons "." "~/.emacs.d/backups/"))
+;(setq auto-save-file-name-transforms
+;      `((".*" ,(expand-file-name "~/.emacs.d/backups/") t)))
 
 ;; key bindings
 (global-set-key (kbd "C-m") 'newline-and-indent)
@@ -73,7 +91,7 @@
 
 ;; redo setting url: http://www.emacswiki.org/emacs/download/redo+.el
 (when (require 'redo+ nil t)
-  (global-set-key (kbd "C-.") 'redo))
+ (global-set-key (kbd "C-.") 'redo))
 
 ;; anything (auto-install-batch "anything")
 (when (require 'anything nil t)
@@ -265,9 +283,9 @@
 ;; yasnippet
 ;; git clone https://github.com/capitaomorte/yasnippet
 
-(when (require 'yasnippet)
-  (yas/global-mode 1)
-  (yas/load-directory "~/.emacs.d/public_repos/yasnippet/snippets"))
+;; (when (require 'yasnippet)
+;;   (yas/global-mode 1)
+;;   (yas/load-directory "~/.emacs.d/public_repos/yasnippet/snippets"))
 
 ;; java auto complete
 ;; git clone https://github.com/jixiuf/ajc-java-complete
@@ -319,4 +337,4 @@
 (add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 
 ;; R
-(require 'ess-site)
+;(require 'ess-site)
